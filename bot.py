@@ -5,39 +5,39 @@ from aiogram import Bot,Dispatcher,executor,types
 logging.basicConfig(level=logging.INFO)
 TOKEN = os.getenv('TOKEN')
 
-albhabet_dict = {'а': 'a', 
-           'б': 'b',
-           'в': 'v',
-           'г': 'g',
-           'д': 'd',
-           'е': 'e',
-           'ё': 'e',
-           'ж': 'zh',
-           'з': 'z',
-           'и': 'i',
-           'й': 'i',
-           'к': 'k',
-           'л': 'l',
-           'м': 'm',
-           'н': 'n',
-           'о': 'o',
-           'п': 'p',
-           'р': 'r',
-           'с': 's',
-           'т': 't',
-            'у': 'u',
-            'ф': 'f',
-            'х': 'kh',
-            'ц': 'ts',
-            'ч': 'ch',
-            'ш': 'sh',
-            'щ': 'shch',
-            'ь': '',
-            'ы': 'y',
-            'ъ': 'ie',
-            'э': 'e',
-            'ю': 'iu',
-            'я': 'ia'}
+albhabet_dict = {'А': 'A', 
+           'Б': 'B',
+           'В': 'V',
+           'Г': 'G',
+           'Д': 'D',
+           'Е': 'E',
+           'Ё': 'E',
+           'Ж': 'ZH',
+           'З': 'Z',
+           'И': 'I',
+           'Й': 'I',
+           'К': 'K',
+           'Л': 'L',
+           'М': 'M',
+           'Н': 'N',
+           'О': 'O',
+           'П': 'P',
+           'Р': 'R',
+           'С': 'S',
+           'Т': 'T',
+            'У': 'U',
+            'Ф': 'F',
+            'Х': 'KH',
+            'Ц': 'TS',
+            'Ч': 'CH',
+            'Ш': 'SH',
+            'Щ': 'SHCH',
+            'Ь': '',
+            'Ы': 'Y',
+            'Ъ': 'IE',
+            'Э': 'E',
+            'Ю': 'IU',
+            'Я': 'IA'}
 
 bot=Bot(token=TOKEN)
 dp=Dispatcher(bot)
@@ -56,13 +56,11 @@ async def send_welcome(message:types.Message):
     user_id=message.from_user.id
     text=message.text
     reply_message = ''    
-    for i in text:
-            if i.islower():
-                reply_message += albhabet_dict.get(i, i)
-            elif i.isupper():
-                reply_message += (albhabet_dict.get((i.lower()), i)).upper()
-            else:
-                reply_message += i
+    for i in text.upper():
+        try:
+            reply_message += albhabet_dict.get(i, i)
+        except:
+            reply_message += i
     logging.info(f'{user_name=} {user_id=} sent message: {message.text}')
     await bot.send_message(user_id, reply_message)
 
